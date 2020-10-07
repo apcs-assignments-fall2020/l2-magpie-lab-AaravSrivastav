@@ -42,6 +42,35 @@ public class Magpie
         {
             response = "Tell me more about your family.";
         }
+        else if (statement.indexOf("dog") >= 0
+                || statement.indexOf("cat") >= 0)
+        {
+            response = "Tell me more about your pets.";
+        }
+        else if(statement.indexOf("Mr") >= 0)
+        {
+            response =  "He sounds like a good teacher";
+        }
+        else if(statement.indexOf("Ms") >= 0 || statement.indexOf("Mrs") >= 0)
+        {
+            response =  "She sounds like a good teacher";
+        }
+        else if( (statement.trim()).length() == 0)
+        {
+            response =  "Say something, please.";
+        }
+        else if(statement.indexOf("ate") >= 0 || statement.indexOf("eat") >= 0)
+        {
+            response =  "That sounds good.";
+        }
+        else if(statement.indexOf("played") >= 0 || statement.indexOf("play") >= 0)
+        {
+            response =  "Fun.";
+        }
+        else if(statement.indexOf("book") >= 0 || statement.indexOf("read") >= 0)
+        {
+            response =  "What do you like to read?";
+        }
         else
         {
             response = getRandomResponse();
@@ -55,7 +84,7 @@ public class Magpie
      */
     public String getRandomResponse()
     {
-        final int NUMBER_OF_RESPONSES = 4;
+        final int NUMBER_OF_RESPONSES = 6;
         double r = Math.random();
         int whichResponse = (int)(r * NUMBER_OF_RESPONSES);
         String response = "";
@@ -76,6 +105,14 @@ public class Magpie
         {
             response = "You don't say.";
         }
+        else if (whichResponse == 4)
+        {
+            response = "Wow.";
+        }
+        else if (whichResponse == 5)
+        {
+            response = "I agree.";
+        }
     
         return response;
     }
@@ -89,8 +126,30 @@ public class Magpie
 
     // The method returns the index of the first character in word
     // if it is found, and returns -1 otherwise. 
-    public int findWord(String str, String word) {
-        return -1;
+    public int findWord(String sTr, String word) {
+        String str1 = "";
+        String str = sTr.toLowerCase();
+        if(str.indexOf(word) != 0 && str.indexOf(word) != (str.length() - word.length()))
+        {
+            str1 = str.substring((str.indexOf(word)-1), (str.indexOf(word)+ word.length() +1));
+        }
+        else if(str.indexOf(word) == 0)
+        {
+            str1 = str.substring(0, (str.indexOf(word)+ word.length() +1));
+        }
+        else if(str.indexOf(word) == (str.length() - word.length()))
+        {
+            str1 = str.substring((str.length() - word.length()), str.length());     }
+        int retVal = 0;
+        if((str1.trim()).equals(word))
+        {
+            retVal = str.indexOf(word);
+        }
+        else
+        {
+            retVal = -1;
+        }
+        return retVal;
     }
 
     
