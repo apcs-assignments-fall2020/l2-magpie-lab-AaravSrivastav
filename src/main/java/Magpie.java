@@ -31,27 +31,43 @@ public class Magpie
     public String getResponse(String statement)
     {
         String response = "";
-        if (statement.indexOf("no") >= 0)
+        if(findWord(statement, "I want") >= 0)
+        {
+            response = transformIWantStatement(statement);
+        }
+        else if(findWord(statement, "I") >= 0 && findWord(statement, "you") >= 0)
+        {
+            response = transformIYouStatement(statement);
+        }
+        else if(findWord(statement, "I want to") >= 0)
+        {
+            response = transformIWantStatement(statement);
+        }
+        else if(findWord(statement, "you") >= 0 && findWord(statement, "me") >= 0)
+        {
+            response = transformYouMeStatement(statement);
+        }
+        else if (findWord(statement, "no") >= 0)
         {
             response = "Why so negative?";
         }
-        else if (statement.indexOf("mother") >= 0
-                || statement.indexOf("father") >= 0
-                || statement.indexOf("sister") >= 0
-                || statement.indexOf("brother") >= 0)
+        else if (findWord(statement, "mother") >= 0
+                || findWord(statement, "father") >= 0
+                || findWord(statement, "sister") >= 0
+                || findWord(statement, "brother") >= 0)
         {
             response = "Tell me more about your family.";
         }
-        else if (statement.indexOf("dog") >= 0
-                || statement.indexOf("cat") >= 0)
+        else if (findWord(statement, "dog") >= 0
+                || findWord(statement, "cat") >= 0)
         {
             response = "Tell me more about your pets.";
         }
-        else if(statement.indexOf("Mr") >= 0)
+        else if(findWord(statement, "Mr") >= 0)
         {
             response =  "He sounds like a good teacher";
         }
-        else if(statement.indexOf("Ms") >= 0 || statement.indexOf("Mrs") >= 0)
+        else if(findWord(statement, "Ms") >= 0 || findWord(statement, "Mrs") >= 0)
         {
             response =  "She sounds like a good teacher";
         }
@@ -59,15 +75,15 @@ public class Magpie
         {
             response =  "Say something, please.";
         }
-        else if(statement.indexOf("ate") >= 0 || statement.indexOf("eat") >= 0)
+        else if(findWord(statement, "ate") >= 0 || findWord(statement, "eat") >= 0)
         {
             response =  "That sounds good.";
         }
-        else if(statement.indexOf("played") >= 0 || statement.indexOf("play") >= 0)
+        else if(findWord(statement, "played") >= 0 || findWord(statement, "play") >= 0)
         {
             response =  "Fun.";
         }
-        else if(statement.indexOf("book") >= 0 || statement.indexOf("read") >= 0)
+        else if(findWord(statement, "book") >= 0 || findWord(statement, "read") >= 0)
         {
             response =  "What do you like to read?";
         }
@@ -163,8 +179,8 @@ public class Magpie
      */
     public String transformIWantStatement(String statement)
     {
-        //your code here
-        return "";
+        String word = statement.substring(statement.indexOf(" want ") + 6);
+        return "Would you really be happy if you had " + word + "?";
     }
 
     /**
@@ -175,8 +191,8 @@ public class Magpie
      */
     public String transformIYouStatement(String statement)
     {
-        //your code here
-        return "";
+        String word = statement.substring((statement.indexOf(" you ") + 3), (statement.length() -4));
+        return "Why do you " + word + " me?";
     }
 
     /**
@@ -187,8 +203,8 @@ public class Magpie
      */
     public String transformIWantToStatement(String statement)
     {
-        // your code here
-        return "";
+        String word = statement.substring((statement.indexOf(" to ") + 4), (statement.length()));
+        return "What would it mean to " + word + "?";
     }
 
 
@@ -202,7 +218,7 @@ public class Magpie
      */
     public String transformYouMeStatement(String statement)
     {
-        // your code here
-        return "";
+        String word = statement.substring((statement.indexOf("you ")+ 4), (statement.length())-2);
+        return "What makes you think that I " + word + "you?";
     }
 }
